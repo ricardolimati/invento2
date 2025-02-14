@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:8
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: inventory
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql  # Espelhando o banco para a máquina local
+    networks:
+      - inventario-network  # Garantindo que o db está na mesma rede
+
+  backend:
+    build: .
+    container_name: backend
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://user:userpassword@database:3306/inventory  # Nome correto do serviço MySQL
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./inventario-backend:/usr/src/app  # Montando o código do backend diretamente no contêiner
+      - /usr/src/app/node_modules          # Mantendo os `node_modules` no contêiner
+    working_dir: /usr/src/app              # Definindo o diretório de trabalho no contêiner
+    command: sh -c "npm install && npm run dev"  # Rodando o backend em modo dev
+    networks:
+      - inventario-network  # Garantindo que o backend está na mesma rede
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - inventario-network  # Garantindo que o Adminer também está na mesma rede
+
+networks:
+  inventario-network:
+    driver: bridge  # Definindo uma rede personalizada
+
+volumes:
+  db_data:
+  mysql-data:

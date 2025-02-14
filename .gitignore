@@ -1,0 +1,6 @@
+inventario-backend/
+inventario-frontend/
+inventario-projeto/
+node_modules/
+.history/
+.vscode/
