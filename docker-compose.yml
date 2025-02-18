@@ -12,7 +12,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-data:/var/lib/mysql  # Espelhando o banco para a máquina local
+      # - ./mysql-data:/var/lib/mysql  # Espelhando o banco para a máquina local
+      - db_data:/var/lib/mysql
     networks:
       - inventario-network  # Garantindo que o db está na mesma rede
 

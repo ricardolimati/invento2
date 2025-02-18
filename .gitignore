@@ -4,3 +4,4 @@ inventario-projeto/
 node_modules/
 .history/
 .vscode/
+mysql-data/
