@@ -1,13 +1,3 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "inventario-backend"
-		},
-		{
-			"path": "inventario-frontend"
-		}
-	]
+	"folders": []
 }
