@@ -25,7 +25,7 @@ services:
     environment:
       - DATABASE_URL=mysql://user:userpassword@database:3306/inventory  # Nome correto do serviço MySQL
     ports:
-      - "3000:3000"
+      - "4000:4000"
     volumes:
       - ./inventario-backend:/usr/src/app  # Montando o código do backend diretamente no contêiner
       - /usr/src/app/node_modules          # Mantendo os `node_modules` no contêiner
